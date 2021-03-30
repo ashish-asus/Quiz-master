@@ -51,6 +51,7 @@ public class AdminLoginController implements Initializable {
             Stage stage=(Stage)studentPassword.getScene().getWindow();
             Scene scene=new Scene(root);
             stage.setScene(scene);
+            stage.setMaximized(true);
     }
         catch(Exception e){
 

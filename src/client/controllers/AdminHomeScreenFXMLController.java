@@ -2,7 +2,9 @@ package client.controllers;
 
 import com.jfoenix.controls.JFXTabPane;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 
@@ -20,6 +22,13 @@ public class AdminHomeScreenFXMLController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        try {
+            Parent node= FXMLLoader.load(getClass().getResource("/client/FXML/AddQuizFXML.fxml"));
+            addQuizTab.setContent(node);
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
 
     }
 }
