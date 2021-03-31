@@ -1,5 +1,7 @@
 package client.controllers;
 
+import client.models.Question;
+import client.models.Quiz;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextArea;
@@ -15,7 +17,7 @@ import org.controlsfx.control.Notifications;
 
 import javax.management.Notification;
 import java.net.URL;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class AddQuizFXMLController implements Initializable {
     @FXML
@@ -47,6 +49,8 @@ public class AddQuizFXMLController implements Initializable {
     @FXML
     public JFXButton setQuizTitleButton;
 
+    private Quiz quiz;
+    private ArrayList<Question> questions=new ArrayList<>();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         radioButtonGroup();
@@ -72,6 +76,7 @@ public class AddQuizFXMLController implements Initializable {
         }
         else{
             quizTitle.setEditable(false);
+            this.quiz=new Quiz(title);
         }
     }
 
@@ -87,6 +92,7 @@ public class AddQuizFXMLController implements Initializable {
         String op3=this.option3.getText();
         String op4=this.option4.getText();
         Toggle selectedRadio=radioGroup.getSelectedToggle();
+        Question question=new Question();
 
         if(qu.trim().isEmpty() || op1.trim().isEmpty() || op2.trim().isEmpty() || op3.trim().isEmpty() || op4.trim().isEmpty() || selectedRadio==null){
 
@@ -97,6 +103,46 @@ public class AddQuizFXMLController implements Initializable {
                     .position(Pos.CENTER)
                     .hideAfter(Duration.millis(2000))
                     .showError();
+        }
+        else{
+            question.setOption1(option1.getText().trim());
+            question.setOption2(option2.getText().trim());
+            question.setOption3(option3.getText().trim());
+            question.setOption4(option4.getText().trim());
+
+
+            Toggle selected=radioGroup.getSelectedToggle();
+
+            String ans=null;
+            if(selected==option1radio){
+                ans=option1.getText().trim();
+            }
+            else if(selected==option2radio){
+                ans=option2.getText().trim();
+            }
+            else if(selected==option3radio){
+                ans=option3.getText().trim();
+            }
+            else{
+                ans=option4.getText().trim();
+            }
+
+            question.setAnswer(ans);
+             question.setQuestion(this.question.getText().trim());
+
+         this.question.clear();
+            option1.clear();
+            option2.clear();
+            option3.clear();
+            option4.clear();
+
+     questions.add(question);
+     System.out.println(questions);
+     System.out.println(quiz);
+
+
+
+
         }
 
 
