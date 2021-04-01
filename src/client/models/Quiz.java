@@ -1,8 +1,6 @@
 package client.models;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
+import java.sql.*;
 
 public class Quiz {
     private Integer quizId;
@@ -53,6 +51,7 @@ public static class MetaData{
             Connection connection=DriverManager.getConnection(connectionUrl);
             PreparedStatement ps=connection.prepareStatement(query);
            boolean b= ps.execute();
+           connection.close();
            System.out.println(b);
 
 
@@ -62,4 +61,33 @@ public static class MetaData{
         }
 
     }
+
+    public int save(){
+
+            String raw="Insert into %s(%s) values (?) ";
+            String query=String.format(raw,MetaData.TABLE_NAME,MetaData.TITLE);
+            String connectionUrl = "jdbc:sqlite:quiz.db";
+            try{
+                Class.forName("org.sqlite.JDBC");
+            try(Connection connection=DriverManager.getConnection(connectionUrl) ) {
+
+                PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+                ps.setString(1, this.title);
+                int i = ps.executeUpdate();
+                ResultSet keys = ps.getGeneratedKeys();
+                if (keys.next()) {
+                    return keys.getInt(1);
+                }
+
+
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        return -1;
+
+    }
+
+
 }
