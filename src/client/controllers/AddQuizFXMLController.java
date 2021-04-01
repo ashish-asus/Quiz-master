@@ -63,6 +63,49 @@ public class AddQuizFXMLController implements Initializable {
         option4radio.setToggleGroup(radioGroup);
 
     }
+    private boolean validateFields(){
+
+
+        if(quiz ==null){
+            Notifications.create()
+                    .title("Quiz").position(Pos.CENTER)
+                    .darkStyle().text("Please Enter Quiz Title")
+                    .showError();
+            return false;
+        }
+
+        String qu = this.question.getText();
+        String op1 = this.option1.getText();
+        String op2 = this.option2.getText();
+        String op3 = this.option3.getText();
+        String op4 = this.option4.getText();
+        Toggle selectedRadio = radioGroup.getSelectedToggle();
+        System.out.println(selectedRadio);
+        if(qu.trim().isEmpty() ||
+                op1.trim().isEmpty() ||
+                op2.trim().isEmpty() || op3.trim().isEmpty()
+                || op4.trim().isEmpty()){
+
+            Notifications.create()
+                    .title("Question").position(Pos.CENTER)
+                    .darkStyle().text("All Fields Are Required.... \n [Question , Option1 , Option 2 , Option 3 , Option 4]")
+                    .showError();
+            return false;
+
+
+
+        }else{
+            if(selectedRadio == null){
+                Notifications.create()
+                        .title("Question").position(Pos.CENTER)
+                        .darkStyle().text("Please Select A Answer....")
+                        .showError();
+                return false;
+            }else{
+                return true;   // save Quistion and add next
+            }
+        }
+    }
 
     public void setQuizTitle(ActionEvent event) {
         String title=quizTitle.getText();
@@ -79,80 +122,86 @@ public class AddQuizFXMLController implements Initializable {
             this.quiz=new Quiz(title);
         }
     }
-
-    public void submitQuiz(ActionEvent event) {
-
-
-
-
-
-
-
-
-
-
-    }
-
-    public void addNextQuestion(ActionEvent event) {
-        String qu=this.question.getText();
-        String op1=this.option1.getText();
-        String op2=this.option2.getText();
-        String op3=this.option3.getText();
-        String op4=this.option4.getText();
-        Toggle selectedRadio=radioGroup.getSelectedToggle();
-        Question question=new Question();
-
-        if(qu.trim().isEmpty() || op1.trim().isEmpty() || op2.trim().isEmpty() || op3.trim().isEmpty() || op4.trim().isEmpty() || selectedRadio==null){
-
-            Notifications.create()
-                    .title("Question")
-                    .darkStyle()
-                    .text("All Fields Are Required (Question,options,Answer)")
-                    .position(Pos.CENTER)
-                    .hideAfter(Duration.millis(2000))
-                    .showError();
-        }
-        else{
+    private boolean addQuestions(){
+        boolean valid = validateFields();
+        Question question = new Question();
+        if(valid){
+            //save
             question.setOption1(option1.getText().trim());
             question.setOption2(option2.getText().trim());
             question.setOption3(option3.getText().trim());
             question.setOption4(option4.getText().trim());
-
-
-            Toggle selected=radioGroup.getSelectedToggle();
-
-            String ans=null;
-            if(selected==option1radio){
-                ans=option1.getText().trim();
+            Toggle selected = radioGroup.getSelectedToggle();
+            String ans = null;
+            if(selected == option1radio){
+                ans = option1.getText().trim();
+            }else if(selected == option2radio){
+                ans = option2.getText().trim();
             }
-            else if(selected==option2radio){
-                ans=option2.getText().trim();
+            else if(selected == option3radio){
+                ans = option3.getText().trim();
             }
-            else if(selected==option3radio){
-                ans=option3.getText().trim();
+            else if(selected == option4radio){
+                ans = option4.getText().trim();
             }
-            else{
-                ans=option4.getText().trim();
-            }
-
             question.setAnswer(ans);
-             question.setQuestion(this.question.getText().trim());
+            question.setQuestion(this.question.getText().trim());
 
-         this.question.clear();
+            this.question.clear();
             option1.clear();
             option2.clear();
             option3.clear();
             option4.clear();
-
-     questions.add(question);
-     System.out.println(questions);
-     System.out.println(quiz);
-
-
-
-
+            questions.add(question);
+            question.setQuiz(quiz);
+            System.out.println("Save Question...");
+            System.out.println(questions);
+            System.out.println(quiz);
         }
-
-
+        quizTitle.clear();
+        return valid;
     }
+
+
+    @FXML
+    private void submitQuiz(ActionEvent event) {
+        boolean flag = addQuestions();
+        if(flag){
+            flag = quiz.save(questions);
+            if(flag){
+                // success
+                this.quizTitle.setDisable(false);
+                Notifications.create()
+                        .title("Success").position(Pos.CENTER)
+                        .darkStyle().text("Quiz Successfully Saved...")
+                        .showInformation();
+
+            }else{
+
+                Notifications.create()
+                        .title("Fail..").position(Pos.CENTER)
+                        .darkStyle().text("cant Save Quiz.. Try Again..")
+                        .showError();
+            }
+        }
+    }
+
+
+
+    @FXML
+    private void addNextQuestion(ActionEvent event) {
+        addQuestions();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 }

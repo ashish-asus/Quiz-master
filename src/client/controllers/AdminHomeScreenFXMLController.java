@@ -26,6 +26,9 @@ public class AdminHomeScreenFXMLController implements Initializable {
             Parent node= FXMLLoader.load(getClass().getResource("/client/FXML/AddQuizFXML.fxml"));
             addQuizTab.setContent(node);
 
+            Parent node1= FXMLLoader.load(getClass().getResource("/client/FXML/AdminStudentTab.fxml"));
+            addStudentTab.setContent(node1);
+
         }catch(Exception e){
             e.printStackTrace();
         }

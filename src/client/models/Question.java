@@ -140,8 +140,7 @@ public class Question {
                 Quiz.MetaData.QUIZ_ID);
         System.err.println(query);
         try{
-
-            String connectionUrl = DatabaseConstants.CONNECTION_URL;
+            String connectionUrl =DatabaseConstants.CONNECTION_URL;
             Class.forName(DatabaseConstants.DRIVER_CLASS);
             Connection connection = DriverManager.getConnection(connectionUrl);
             PreparedStatement ps = connection.prepareStatement(query);
