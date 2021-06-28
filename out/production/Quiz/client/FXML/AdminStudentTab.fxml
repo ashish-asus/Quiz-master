@@ -14,14 +14,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="643.0" prefWidth="1046.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controllers.AdminStudentTab">
+<AnchorPane prefHeight="598.0" prefWidth="1129.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AdminStudentTab">
     <children>
-        <SplitPane dividerPositions="0.37547892720306514" prefHeight="160.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <SplitPane dividerPositions="0.2580321285140562" prefHeight="707.0" prefWidth="1129.0" AnchorPane.bottomAnchor="-109.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-131.0" AnchorPane.topAnchor="0.0">
             <items>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="641.0" prefWidth="356.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                     <children>
 
-                        <VBox fx:id="formContainer" prefHeight="641.0" prefWidth="389.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <VBox fx:id="formContainer" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <padding>
                                 <Insets left="10.0" right="10.0" top="20.0" />
                             </padding>
@@ -131,17 +131,17 @@
                         </VBox>
                     </children>
                 </AnchorPane>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="641.0" prefWidth="712.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                     <children>
-                        <TableView fx:id="studentTable" prefHeight="641.0" prefWidth="649.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <TableView fx:id="studentTable" prefHeight="413.0" prefWidth="468.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <columns>
                                 <TableColumn fx:id="studentIdColumn" prefWidth="75.0" text="Student Id" />
-                                <TableColumn fx:id="firstNameColumn" minWidth="0.0" prefWidth="136.0" text="First Name" />
-                                <TableColumn fx:id="lastNameColumn" prefWidth="77.0" text="Last Name" />
+                                <TableColumn fx:id="firstNameColumn" prefWidth="75.0" text="First Name" />
+                                <TableColumn fx:id="lastNameColumn" prefWidth="75.0" text="Last Name" />
                                 <TableColumn fx:id="emailColumn" prefWidth="75.0" text="Email" />
                                 <TableColumn fx:id="passwordColumn" prefWidth="75.0" text="Password" />
-                                <TableColumn fx:id="mobileNumberColumn" prefWidth="59.0" text="Mobile Number" />
-                                <TableColumn fx:id="genderColumn" minWidth="0.0" prefWidth="43.0" text="Gender" />
+                                <TableColumn fx:id="mobileNumberColumn" prefWidth="75.0" text="Mobile Number" />
+                                <TableColumn fx:id="genderColumn" prefWidth="75.0" text="Gender" />
                             </columns>
                             <columnResizePolicy>
                                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
