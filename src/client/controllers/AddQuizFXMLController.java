@@ -1,68 +1,126 @@
+
 package client.controllers;
 
-import client.models.Question;
-import client.models.Quiz;
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXRadioButton;
-import com.jfoenix.controls.JFXTextArea;
-import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.*;
+
+import java.net.URL;
+import java.util.*;
+
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.TreeItem;
 import javafx.util.Duration;
+import client.models.Question;
+import client.models.Quiz;
 import org.controlsfx.control.Notifications;
 
-import javax.management.Notification;
-import java.net.URL;
-import java.util.*;
-
+/**
+ * FXML Controller class
+ *
+ * @author dell
+ */
 public class AddQuizFXMLController implements Initializable {
     @FXML
-    public JFXTextField quizTitle;
+    private JFXTreeView treeView;
     @FXML
-    public JFXTextArea question;
+    private JFXTextField quizTitle;
     @FXML
-    public JFXTextField option1;
+    private JFXTextArea question;
     @FXML
-    public JFXTextField option2;
+    private JFXTextField option1;
     @FXML
-    public JFXTextField option3;
+    private JFXTextField option2;
     @FXML
-    public JFXTextField option4;
+    private JFXTextField option3;
     @FXML
-    public JFXRadioButton option1radio;
+    private JFXTextField option4;
     @FXML
-    public JFXRadioButton option2radio;
+    private JFXRadioButton option1radio;
     @FXML
-    public JFXRadioButton option3radio;
+    private JFXRadioButton option2radio;
     @FXML
-    public JFXRadioButton option4radio;
+    private JFXRadioButton option3radio;
     @FXML
-    public JFXButton addNextQuestion;
+    private JFXRadioButton option4radio;
     @FXML
-    public JFXButton submitQuiz;
+    private JFXButton addNextQuestion;
     @FXML
-    public ToggleGroup radioGroup;
-    @FXML
-    public JFXButton setQuizTitleButton;
+    private JFXButton submitQuiz;
 
-    private Quiz quiz;
-    private ArrayList<Question> questions=new ArrayList<>();
+    private ToggleGroup radioGroup;
+    @FXML
+    private JFXButton setQuizTitleButton;
+
+    // my Variable
+    private Quiz quiz = null;
+    private ArrayList<Question> questions = new ArrayList<>();
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        radioButtonGroup();
+    public void initialize(URL url, ResourceBundle rb) {
+        // TODO
+        radioButtonSetup();
+        renderTreeView();
+
     }
-    public void radioButtonGroup(){
-        radioGroup=new ToggleGroup();
+
+    private void renderTreeView(){
+        Map<Quiz , List<Question>> data = Quiz.getAll();
+        Set<Quiz> quizzes = data.keySet();
+
+        TreeItem root = new TreeItem("Quizzes");
+        for(Quiz q : quizzes){
+            TreeItem quizTreeItem = new TreeItem(q);
+
+            List<Question> questions = data.get(q);
+            for(Question question : questions){
+                TreeItem questionTreeItem = new TreeItem(question);
+                questionTreeItem.getChildren().add(new TreeItem("A : " + question.getOption1()));
+                questionTreeItem.getChildren().add(new TreeItem("B : " +question.getOption2()));
+                questionTreeItem.getChildren().add(new TreeItem("C : " +question.getOption3()));
+                questionTreeItem.getChildren().add(new TreeItem("D : " +question.getOption4()));
+                questionTreeItem.getChildren().add(new TreeItem("Ans : " +question.getAnswer()));
+                quizTreeItem.getChildren().add(questionTreeItem);
+            }
+
+            quizTreeItem.setExpanded(true);
+            root.getChildren().add(quizTreeItem);
+        }
+
+        root.setExpanded(true);
+        this.treeView.setRoot(root);
+    }
+
+    private void radioButtonSetup(){
+        radioGroup = new ToggleGroup();
         option1radio.setToggleGroup(radioGroup);
         option2radio.setToggleGroup(radioGroup);
         option3radio.setToggleGroup(radioGroup);
         option4radio.setToggleGroup(radioGroup);
-
     }
+
+    @FXML
+    private void setQuizTitle(ActionEvent event) {
+        System.out.println("controllers.AddQuizFXMLController.setQuizTitle()");
+        String title = quizTitle.getText();
+        if(title.trim().isEmpty()){
+            Notifications.create()
+                    .darkStyle()
+                    .position(Pos.TOP_RIGHT)
+                    .hideAfter(Duration.millis(2000))
+                    .text("Enter valid Quiz Title")
+                    .title("Quiz Title").showError();
+
+        }else{
+            quizTitle.setEditable(false);
+            System.err.println("Save Title.....");
+            this.quiz = new Quiz(title);
+        }
+    }
+
     private boolean validateFields(){
 
 
@@ -107,21 +165,11 @@ public class AddQuizFXMLController implements Initializable {
         }
     }
 
-    public void setQuizTitle(ActionEvent event) {
-        String title=quizTitle.getText();
-        if(title.trim().isEmpty()){
-            Notifications notifications = Notifications.create();
-            notifications.text("Enter valid Quiz Title");
-            notifications.title("Quiz Title");
-            notifications.position(Pos.TOP_RIGHT);
-            notifications.hideAfter(Duration.millis(2000));
-            notifications.showError();
-        }
-        else{
-            quizTitle.setEditable(false);
-            this.quiz=new Quiz(title);
-        }
+    @FXML
+    private void addNextQuestion(ActionEvent event) {
+        addQuestions();
     }
+
     private boolean addQuestions(){
         boolean valid = validateFields();
         Question question = new Question();
@@ -158,10 +206,9 @@ public class AddQuizFXMLController implements Initializable {
             System.out.println(questions);
             System.out.println(quiz);
         }
-        quizTitle.clear();
+
         return valid;
     }
-
 
     @FXML
     private void submitQuiz(ActionEvent event) {
@@ -177,7 +224,7 @@ public class AddQuizFXMLController implements Initializable {
                         .showInformation();
 
             }else{
-
+                // eoor
                 Notifications.create()
                         .title("Fail..").position(Pos.CENTER)
                         .darkStyle().text("cant Save Quiz.. Try Again..")
@@ -185,23 +232,6 @@ public class AddQuizFXMLController implements Initializable {
             }
         }
     }
-
-
-
-    @FXML
-    private void addNextQuestion(ActionEvent event) {
-        addQuestions();
-    }
-
-
-
-
-
-
-
-
-
-
 
 
 }

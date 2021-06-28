@@ -10,7 +10,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
-//import client.models.Student;
+import client.models.Student;
 import org.controlsfx.control.Notifications;
 
 import java.net.URL;

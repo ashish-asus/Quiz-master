@@ -2,6 +2,7 @@ package start;
 
 import client.models.Question;
 import client.models.Quiz;
+import client.models.Student;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -26,6 +27,7 @@ public class StartApp extends Application {
     private void createTables(){
         Quiz.createTable();
         Question.createTable();
+        Student.createTable();
     }
 }
 

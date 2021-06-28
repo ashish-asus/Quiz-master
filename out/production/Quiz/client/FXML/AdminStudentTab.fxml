@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="598.0" prefWidth="1129.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AdminStudentTab">
+<AnchorPane prefHeight="598.0" prefWidth="1129.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.controllers.AdminStudentTab">
     <children>
         <SplitPane dividerPositions="0.2580321285140562" prefHeight="707.0" prefWidth="1129.0" AnchorPane.bottomAnchor="-109.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-131.0" AnchorPane.topAnchor="0.0">
             <items>
