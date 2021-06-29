@@ -1,8 +1,6 @@
 package start;
 
-import client.models.Question;
-import client.models.Quiz;
-import client.models.Student;
+import client.models.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -16,7 +14,7 @@ public class StartApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         createTables();
-        Parent root= FXMLLoader.load(getClass().getResource("/client/AdminLogin.fxml"));
+        Parent root= FXMLLoader.load(getClass().getResource("/client/FXML/loginFXML.fxml"));
         Stage stage=new Stage();
         Scene scene=new Scene(root);
         stage.setScene(scene);
@@ -28,6 +26,8 @@ public class StartApp extends Application {
         Quiz.createTable();
         Question.createTable();
         Student.createTable();
+        QuizResult.createTable();
+        QuizResultDetails.createTable();
     }
 }
 

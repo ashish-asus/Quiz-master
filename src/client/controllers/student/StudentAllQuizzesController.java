@@ -10,7 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import listeners.NewScreenListener;
+import client.listeners.NewScreenListener;
 import client.models.Student;
 
 import java.io.IOException;

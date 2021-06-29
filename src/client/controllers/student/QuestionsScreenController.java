@@ -17,7 +17,7 @@ package client.controllers.student;
         import javafx.scene.control.Label;
         import javafx.scene.control.ToggleGroup;
         import javafx.scene.layout.FlowPane;
-        import listeners.NewScreenListener;
+        import client.listeners.NewScreenListener;
         import client.models.Question;
         import client.models.Quiz;
         import client.models.QuizResult;

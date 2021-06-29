@@ -5,7 +5,7 @@ package client.controllers.student;
         import javafx.fxml.Initializable;
         import javafx.scene.Node;
         import javafx.scene.layout.FlowPane;
-        import listeners.NewScreenListener;
+        import client.listeners.NewScreenListener;
         import client.models.Quiz;
         import client.models.Student;
 
