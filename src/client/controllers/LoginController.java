@@ -7,7 +7,7 @@ import java.util.ResourceBundle;
 
 import client.controllers.student.StudentAllQuizzesController;
 import client.controllers.student.StudentHomeFXMLController;
-import client.exceptions.LoginException;
+//import exceptions.LoginException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,7 +18,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import client.models.Student;
+import models.Student;
 import org.controlsfx.control.Notifications;
 
 public class LoginController implements Initializable {
@@ -53,7 +53,7 @@ public class LoginController implements Initializable {
         if(email.trim().equalsIgnoreCase(AdminEmailPassword.email) && password.trim().equalsIgnoreCase(AdminEmailPassword.password)){
 
             try {
-                Parent root = FXMLLoader.load(getClass().getResource("/FXML/AdminHomeScreenFXML.fxml"));
+                Parent root = FXMLLoader.load(getClass().getResource("/fxml/AdminHomeScreenFXML.fxml"));
                 Stage stage = (Stage)studentPassword.getScene().getWindow();
                 Scene scene = new Scene(root);
                 stage.setScene(scene);
@@ -80,7 +80,7 @@ public class LoginController implements Initializable {
 
             try {
                 FXMLLoader fxmlLoader =  new FXMLLoader(getClass().
-                        getResource("/FXML/student/StudentHomeFXML.fxml"));
+                        getResource("/fxml/student/StudentHomeFXML.fxml"));
                 Parent root = fxmlLoader.load();
                 StudentHomeFXMLController controller = fxmlLoader.getController();
                 controller.setStudent(s);

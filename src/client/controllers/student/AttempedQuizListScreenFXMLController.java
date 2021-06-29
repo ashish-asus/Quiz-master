@@ -1,5 +1,5 @@
 package client.controllers.student;
-        import client.controllers.student.smallLayout.AttempedQuizListItemFXML;
+        import controllers.student.smallLayout.AttempedQuizListItemFXML;
         import javafx.collections.ObservableList;
         import javafx.fxml.FXMLLoader;
         import javafx.fxml.Initializable;
@@ -7,7 +7,7 @@ package client.controllers.student;
         import javafx.scene.chart.PieChart;
         import javafx.scene.control.Label;
         import javafx.scene.layout.VBox;
-        import client.listeners.AttempedQuizItemClickListener;
+        import listeners.AttempedQuizItemClickListener;
         import client.models.Quiz;
         import client.models.QuizResult;
         import client.models.Student;

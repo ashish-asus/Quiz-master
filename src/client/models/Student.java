@@ -1,7 +1,9 @@
 package client.models;
         import client.constants.DatabaseConstants;
-       import client.exceptions.LoginException;
-      //  import javax.security.auth.login.LoginException;
+       // import constants.DatabaseConstants;
+     //   import exceptions.LoginException;
+
+        import javax.security.auth.login.LoginException;
         import java.sql.*;
         import java.util.ArrayList;
 

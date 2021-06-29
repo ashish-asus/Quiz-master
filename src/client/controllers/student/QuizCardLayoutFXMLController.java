@@ -9,7 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
-import client.listeners.NewScreenListener;
+import listeners.NewScreenListener;
 import client.models.Quiz;
 import client.models.Student;
 
